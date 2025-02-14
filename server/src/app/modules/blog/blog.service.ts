@@ -75,9 +75,8 @@ const deleteBlog = async (
   );
 };
 
-const getSingleBlogs = async (_id:string) => {
-  const result = await Blog.findById(_id)
-
+const getSingleBlogs = async (_id: string) => {
+  const result = await Blog.findById(_id);
 
   return result;
 };
@@ -97,5 +96,5 @@ export const BlogService = {
   updateBlog,
   deleteBlog,
   getBlogs,
-  getSingleBlogs
+  getSingleBlogs,
 };

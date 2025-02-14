@@ -15,7 +15,6 @@ blogRouter.post(
 );
 blogRouter.patch(
   '/:id',
-  auth('user', 'admin'),
   validateRequest(BlogValidation.updateBlogValidation),
   BlogController.updateBlog,
 );
