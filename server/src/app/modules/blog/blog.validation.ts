@@ -4,6 +4,7 @@ const createBlogValidation=z.object({
     body:z.object({
         title:z.string(),
         content:z.string(),
+        image:z.string(),
         // author:z.string()
     })
 })
@@ -11,6 +12,7 @@ const updateBlogValidation=z.object({
     body:z.object({
         title:z.string().optional(),
         content:z.string().optional(),
+        image:z.string().optional(),
         // author:z.string()
     })
 })

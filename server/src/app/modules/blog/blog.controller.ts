@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { JwtPayload } from 'jsonwebtoken';
-import AppError from '../../Errors/appError';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { BlogService } from './blog.service';
@@ -9,43 +7,31 @@ import { BlogService } from './blog.service';
 
 const createBlog = catchAsync(async (req: Request, res: Response) => {
   const data = req.body;
-  const authors = req?.user as JwtPayload;
-  if (!authors) {
-    throw new AppError(
-      StatusCodes.UNAUTHORIZED,
-      'You are not authorized to access this route',
-    );
-  }
 
-  const result = await BlogService.createBlog(data, authors);
-
-  const { _id, title, content, author } = result;
+  const result = await BlogService.createBlog(data);
 
   sendResponse(res, {
     success: true,
     message: 'Blog create successfully',
     statusCode: StatusCodes.CREATED,
-    data: { _id, title, content, author },
+    data: result,
   });
 });
 
 const updateBlog = catchAsync(async (req: Request, res: Response) => {
   const blogId = req.params.id;
   const payload = req.body;
-  const authors = req?.user as JwtPayload;
-  const result = await BlogService.updateBlog(blogId, payload, authors);
-  const { _id, title, content, author } = result;
+  const result = await BlogService.updateBlog(blogId, payload);
   sendResponse(res, {
     success: true,
     message: 'Blog update successfully',
     statusCode: StatusCodes.OK,
-    data: { _id, title, content, author },
+    data: result,
   });
 });
 const deleteBlog = catchAsync(async (req: Request, res: Response) => {
   const blogId = req.params.id;
-  const authors = req?.user as JwtPayload;
-  const result = await BlogService.deleteBlog(blogId, authors);
+  const result = await BlogService.deleteBlog(blogId);
   // const { _id, title, content, author }=result
   sendResponse(res, {
     success: true,
@@ -55,7 +41,7 @@ const deleteBlog = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getSingleBlog = catchAsync(async (req:Request, res:Response) => {
+const getSingleBlog = catchAsync(async (req: Request, res: Response) => {
   const blogId = req?.params?.blogId;
   const result = await BlogService.getSingleBlogs(blogId);
   sendResponse(res, {
@@ -65,7 +51,7 @@ const getSingleBlog = catchAsync(async (req:Request, res:Response) => {
     data: result,
   });
 });
-const getBlog = catchAsync(async (req:Request, res:Response) => {
+const getBlog = catchAsync(async (req: Request, res: Response) => {
   const queryData = req?.query;
   const result = await BlogService.getBlogs(queryData);
   sendResponse(res, {
@@ -81,5 +67,5 @@ export const BlogController = {
   updateBlog,
   deleteBlog,
   getBlog,
-  getSingleBlog
+  getSingleBlog,
 };
