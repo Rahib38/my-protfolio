@@ -18,7 +18,7 @@ export default function ThemeToggle() {
       <input
         type="checkbox"
         id="dn-toggle-bs"
-        className="hidden"
+        className="peer absolute left-2"
         checked={theme === "dark"}
         onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
       />
