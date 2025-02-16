@@ -10,6 +10,10 @@ const blogSchema = new Schema<TBlog>({
     type: String,
     required: true,
   },
+  image: {
+    type: String,
+    required: true,
+  },
   author: {
     type: Schema.Types.ObjectId,
     ref: 'User',

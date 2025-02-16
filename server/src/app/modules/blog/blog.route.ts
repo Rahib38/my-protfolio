@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import auth from '../../middlewares/auth';
 import validateRequest from '../../middlewares/validateRequest';
 import { BlogController } from './blog.controller';
 import { BlogValidation } from './blog.validation';
@@ -9,7 +8,6 @@ blogRouter.get('/', BlogController.getBlog);
 blogRouter.get('/:blogId', BlogController.getSingleBlog);
 blogRouter.post(
   '/',
-  auth('admin', 'user'),
   validateRequest(BlogValidation.createBlogValidation),
   BlogController.createBlog,
 );
@@ -18,6 +16,6 @@ blogRouter.patch(
   validateRequest(BlogValidation.updateBlogValidation),
   BlogController.updateBlog,
 );
-blogRouter.delete('/:id', auth('user', 'admin'), BlogController.deleteBlog);
+blogRouter.delete('/:id',  BlogController.deleteBlog);
 
 export default blogRouter;
