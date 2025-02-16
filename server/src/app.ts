@@ -1,10 +1,8 @@
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
-import authRouter from "./app/modules/auth/auth.route";
 import { StatusCodes } from "http-status-codes";
 import { globalErrorHandler } from "./app/middlewares/globalErrorHandlers";
 import blogRouter from "./app/modules/blog/blog.route";
-import adminRouter from "./app/modules/admin/admin.route";
 import projectsRouter from "./app/modules/projects/project.routes";
 const app: Application = express();
 // const port = 3000;
@@ -12,10 +10,8 @@ app.use(express.json());
 app.use(cors());
 
 
-app.use('/api/auth',authRouter)
 app.use('/api/blogs',blogRouter)
 app.use('/api/projects',projectsRouter)
-app.use('/api/admin',adminRouter)
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
 });
