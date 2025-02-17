@@ -130,7 +130,7 @@ export default function AddProjectModal(): JSX.Element {
                 </header>
                 <div
                   id="content-3a"
-                  className="flex justify-between overflow-auto"
+                  className="overflow-auto"
                 >
                   <AddProjects></AddProjects>{" "}
                 </div>

@@ -15,10 +15,10 @@ export default function DashboardLayout({
   return (
     <div className="min-h-screen">
       <div className="flex justify-between gap-4">
-        <div className="w-[20%] bg-zinc-200 dark:bg-zinc-800 max-h-screen">
+        <div className="md:w-[20%]   max-h-screen">
           <Sidebar />
         </div>
-        <div className="w-[80%]  rounded-xl ml-2">{children}</div>
+        <div className="md:w-[80%] lg:p-10 lg:px-16 rounded-xl lg:ml-6">{children}</div>
       </div>
     </div>
   );
