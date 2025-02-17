@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useState } from "react";
+import ImageUpload from "../ImageUploader";
 
 export default function AddBlog() {
   const [formData, setFormData] = useState({
@@ -19,35 +20,35 @@ export default function AddBlog() {
     }));
   };
 
+  const handleImageUpload = (imageUrl: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      image: imageUrl,
+    }));
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    
+
     try {
       const response = await fetch("http://localhost:5001/api/blogs", {
         method: "POST",
-        
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
-console.log(response,"res")
-      const data = await response.json();
-console.log(data,'data')
-      if (response.ok) {
-        console.log("Blog created successfully:", data.blog);
-        // Reset form or give user feedback
-        setFormData({
-          title: "",
-          content: "",
-          image: "",
-          isPublished: false,
-          author: "",
-        });
-      } else {
-        console.error("Error creating blog:", data.message);
-      }
+      const result = await response.json();
+      console.log("Blog created successfully:", result);
+
+      setFormData({
+        title: "",
+        content: "",
+        image: "",
+        isPublished: false,
+        author: "",
+      });
     } catch (error) {
       console.error("Error:", error);
     }
@@ -81,16 +82,10 @@ console.log(data,'data')
             required
           ></textarea>
         </div>
-        <div>
-          <label className="block text-gray-700 dark:text-gray-300">Image URL</label>
-          <input
-            type="text"
-            name="image"
-            value={formData.image}
-            onChange={handleChange}
-            className="w-full mt-1 p-2 border rounded-md bg-gray-100 dark:bg-gray-800 dark:text-white"
-          />
-        </div>
+
+        {/* Image Upload Component */}
+        <ImageUpload onImageUpload={handleImageUpload} />
+
         <div>
           <label className="block text-gray-700 dark:text-gray-300">Author</label>
           <input
