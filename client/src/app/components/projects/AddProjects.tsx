@@ -57,7 +57,7 @@ export default function AddProjects() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-xl dark:bg-gray-900">
+    <div className=" rounded-xl dark:bg-gray-900">
       <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
         Add a New Projects
       </h2>
