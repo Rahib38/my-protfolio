@@ -51,7 +51,21 @@ export default function ImageUpload({ onImageUpload }: ImageUploadProps) {
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <input type="file" accept="image/*" onChange={handleImageChange} />
+  <div className="relative my-6 inline-flex w-full items-center gap-2 rounded border border-slate-200 text-sm text-slate-500">
+        <input
+          id="file-upload"
+          name="file-upload"
+          type="file"
+          className="peer order-2 [&::file-selector-button]:hidden"
+          accept="image/*" onChange={handleImageChange} 
+        />
+        <label
+          className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded bg-emerald-500 px-6 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-emerald-600 focus:bg-emerald-700 focus-visible:outline-none peer-disabled:cursor-not-allowed peer-disabled:border-emerald-300 peer-disabled:bg-emerald-300"
+        >
+          {" "}
+          Upload a file{" "}
+        </label>
+      </div>
       {uploading && <p className="text-gray-500">Uploading...</p>}
       
       {preview && (
