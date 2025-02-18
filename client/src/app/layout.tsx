@@ -40,7 +40,7 @@ export default async function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="relative">
             <NavbarWrapper user={user}/>
-            <div className="absolute right-0 h-screen top-44">
+            <div className="absolute right-0 h-screen top-32">
               <ThemeToggle ></ThemeToggle>
             </div>
             <div className="min-h-screen">{children}</div>

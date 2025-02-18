@@ -82,7 +82,7 @@ export default function Modal(): JSX.Element {
     <>
       <button
         onClick={() => setIsShowing(true)}
-        className="inline-flex items-center justify-center h-10 gap-2 px-5 text-sm font-medium tracking-wide text-white transition duration-300 rounded whitespace-nowrap bg-emerald-500 hover:bg-emerald-600 focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-emerald-300 disabled:bg-emerald-300 disabled:shadow-none"
+        className="inline-flex items-center justify-center h-10 gap-2 px-5 text-sm font-medium tracking-wide text-white transition duration-300 rounded whitespace-nowrap bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-blue-300 disabled:bg-blue-300 disabled:shadow-none"
       >
         <span>Login</span>
       </button>
@@ -130,7 +130,7 @@ export default function Modal(): JSX.Element {
                     </span>
                   </button>
                 </header>
-                <div id="content-3a" className="flex justify-between overflow-auto">
+                <div id="content-3a" className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <button
                   onClick={()=>signIn("google")}
                     className="inline-flex h-12 min-w-44 border items-center justify-start gap-2 whitespace-nowrap rounded-2xl px-3.5 text-base font-semibold tracking-wide  transition duration-300 focus-visible:outline-none"

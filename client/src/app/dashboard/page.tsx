@@ -8,12 +8,12 @@ const DashboardPage = async () => {
 
   return (
     <div className="flex flex-col items-center justify-center  p-6 container mx-auto">
-      <h1 className="text-3xl font-semibold text-white mb-6">
+      <h1 className="text-3xl font-semibold  mb-6">
         Welcome, {user?.name || "Guest"}! 🎉
       </h1>
 
       {user ? (
-        <div className="p-6 rounded-2xl shadow-lg bg-white/10 backdrop-blur-md text-white border border-white/20 w-full max-w-sm mx-auto transition-transform transform hover:scale-105">
+        <div className="p-6 rounded-2xl shadow-lg bg-white/10 backdrop-blur-md border border-white/20 w-full max-w-sm mx-auto transition-transform transform hover:scale-105">
           <div className="flex flex-col items-center gap-4">
             <Image
               src={user.image || "/default-avatar.png"} 
@@ -23,11 +23,11 @@ const DashboardPage = async () => {
               height={550}
             />
             <h3 className="text-xl font-semibold">{user.name}</h3>
-            <p className="text-sm text-gray-300">{user.email}</p>
+            <p className="text-sm ">{user.email}</p>
           </div>
         </div>
       ) : (
-        <p className="text-gray-400">Please log in to see your profile.</p>
+        <p className="">Please log in to see your profile.</p>
       )}
     </div>
   );
