@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FaEdit, FaExternalLinkAlt, FaGithub, FaTrash } from "react-icons/fa";
 
 const ProjectCard = ({ project, onUpdate }: any) => {
+
+
   const isDashboard =
     typeof window !== "undefined" &&
     window.location.pathname.includes("/dashboard");
@@ -19,13 +20,19 @@ const ProjectCard = ({ project, onUpdate }: any) => {
     image: project?.image,
     githubLink: project?.githubLink,
     liveLink: project?.liveLink,
+    technologies: project?.technologies,
   });
+
+  const technologies = updatedProject?.technologies?.split(",") || [];
+
+  console.log(technologies);
 
   const handleChange = (e: any) => {
     setUpdatedProject({ ...updatedProject, [e.target.name]: e.target.value });
   };
 
   const handleUpdate = async () => {
+
     try {
       const res = await fetch(
         `http://localhost:5001/api/projects/${project._id}`,
@@ -71,26 +78,23 @@ const ProjectCard = ({ project, onUpdate }: any) => {
   };
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      className="relative group overflow-hidden rounded bg-white text-slate-500 shadow-md"
-    >
+    <div className="relative p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out transform hover:scale-105">
       <figure className="relative">
         <Image
           src={project?.image || "https://picsum.photos/id/101/800/600"}
           alt={project?.title}
           className="aspect-video w-full transition-transform duration-500 group-hover:scale-110"
-          width={500}
-          height={500}
+          width={1000}
+          height={1000}
         />
-        <div className="absolute top-4 right-4 flex gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <div className="absolute top-2 right-2 flex gap-2 opacity-50 transition-opacity duration-300 hover:opacity-100">
           {project?.githubLink && (
             <Link
               href={project.githubLink}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700"
+              style={{ pointerEvents: "auto" }} // Allow pointer events on GitHub link
             >
               <FaGithub className="text-lg" />
             </Link>
@@ -101,6 +105,7 @@ const ProjectCard = ({ project, onUpdate }: any) => {
               target="_blank"
               rel="noopener noreferrer"
               className="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-500"
+              style={{ pointerEvents: "auto" }} // Allow pointer events on Live link
             >
               <FaExternalLinkAlt className="text-lg" />
             </Link>
@@ -108,40 +113,38 @@ const ProjectCard = ({ project, onUpdate }: any) => {
         </div>
       </figure>
 
-      <div className="p-6">
+      <div className="p-2">
         {isDashboard && (
-          <div className="absolute top-3 left-3 flex gap-3">
+          <div className="absolute top-4 left-4 flex gap-3">
             <button
               className="text-blue-500 hover:text-blue-700"
               onClick={() => setIsEditOpen(true)}
+              style={{ pointerEvents: "auto" }} // Allow pointer events on edit button
             >
               <FaEdit size={18} />
             </button>
             <button
               className="text-red-500 hover:text-red-700"
               onClick={handleDelete}
+              style={{ pointerEvents: "auto" }} // Allow pointer events on delete button
             >
               <FaTrash size={18} />
             </button>
           </div>
         )}
-        <h3 className="text-xl font-medium text-slate-700">{project?.title}</h3>
-        <p className="text-sm text-slate-400">
+        <h3 className="text-xl font-medium ">{project?.title}</h3>
+        <p className="text-sm ">
           {project?.description.slice(0, 150)}...
         </p>
-        <div className="mt-4 overflow-x-auto whitespace-nowrap flex gap-2 py-2">
-          <span className="px-3 py-1 bg-gray-200 rounded-full text-sm">
-            React
-          </span>
-          <span className="px-3 py-1 bg-gray-200 rounded-full text-sm">
-            Next.js
-          </span>
-          <span className="px-3 py-1 bg-gray-200 rounded-full text-sm">
-            Tailwind CSS
-          </span>
-          <span className="px-3 py-1 bg-gray-200 rounded-full text-sm">
-            Framer Motion
-          </span>
+        <div className="mt-4 overflow-x-auto whitespace-nowrap flex gap-2 py-2 max-w-full">
+          {technologies?.map((tech:any, index:any) => (
+            <span
+              key={index}
+              className="px-3 py-1 bg-gray-400 rounded-full text-sm"
+            >
+              {tech}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -197,7 +200,7 @@ const ProjectCard = ({ project, onUpdate }: any) => {
           </div>
         </div>
       )}
-    </motion.div>
+    </div>
   );
 };
 
