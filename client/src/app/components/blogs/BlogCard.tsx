@@ -1,31 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import ImageUpload from "../ImageUploader";
 
-const BlogCard = ({ blog, onUpdate }:any) => {
+const BlogCard = ({ blog, onUpdate,session }: any) => {
+  console.log(session,"ses")
   const isDashboard =
-  typeof window !== "undefined" &&
-  window.location.pathname.includes("/dashboard");
+    typeof window !== "undefined" &&
+    window.location.pathname.includes("/dashboard");
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [updatedBlog, setUpdatedBlog] = useState({
     title: blog?.title,
     content: blog?.content,
     image: blog?.image,
-
-    
   });
   const handleImageUpload = (imageUrl: string) => {
-    setUpdatedBlog((prev:any) => ({
+    setUpdatedBlog((prev: any) => ({
       ...prev,
       image: imageUrl,
     }));
   };
 
   // Handle input changes
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     setUpdatedBlog({ ...updatedBlog, [e.target.name]: e.target.value });
   };
 
@@ -49,7 +49,6 @@ const BlogCard = ({ blog, onUpdate }:any) => {
     }
   };
 
-
   const handleDelete = async () => {
     if (!window.confirm("Are you sure?")) return;
 
@@ -70,22 +69,24 @@ const BlogCard = ({ blog, onUpdate }:any) => {
     }
   };
   return (
-    <div className="relative bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out transform hover:scale-105">
+    <div className="relative  p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out transform hover:scale-105">
       {/* Edit & Delete Icons */}
-      {isDashboard&&<div className="absolute top-3 right-3 flex gap-3">
-        <button
-          className="text-blue-500 hover:text-blue-700 transition-colors"
-          onClick={() => setIsEditOpen(true)}
-        >
-          <FaEdit size={18} />
-        </button>
-        <button 
-          className="text-red-500 hover:text-red-700 transition-colors"
-          onClick={handleDelete}
-        >
-          <FaTrash size={18} />
-        </button>
-      </div>}
+      {isDashboard && (
+        <div className="absolute top-3 right-3 flex gap-3">
+          <button
+            className="text-blue-500 hover:text-blue-700 transition-colors"
+            onClick={() => setIsEditOpen(true)}
+          >
+            <FaEdit size={18} />
+          </button>
+          <button
+            className="text-red-500 hover:text-red-700 transition-colors"
+            onClick={handleDelete}
+          >
+            <FaTrash size={18} />
+          </button>
+        </div>
+      )}
 
       {/* Blog Image */}
       <Image
@@ -97,24 +98,26 @@ const BlogCard = ({ blog, onUpdate }:any) => {
       />
 
       {/* Blog Title */}
-      <h3 className="text-2xl font-semibold text-gray-800 hover:text-blue-600 transition-all duration-200">
+      <h3 className="text-2xl font-semibold  hover:text-blue-600 transition-all duration-200">
         {blog?.title}
       </h3>
 
       {/* Blog Content Preview */}
-      <p className="text-gray-600 mt-2 text-base">
+      <p className=" mt-2 text-base">
         {blog?.content.slice(0, 150)}...
       </p>
 
       <div className="flex justify-between items-center mt-4">
         {/* Author */}
-        <span className="text-gray-500 text-sm font-medium">
-          By {blog?.author?.name || "Unknown Author"}
+        <span className=" text-sm font-medium">
+          By {session?.user?.name || "Unknown Author"}
         </span>
         {/* See More Button */}
-        <button className="text-blue-600 hover:underline text-sm font-semibold">
-          See More
-        </button>
+        <Link href={`/blogs/${blog?._id}`}>
+          <button className="text-blue-600 hover:underline text-sm font-semibold">
+            See More
+          </button>
+        </Link>
       </div>
 
       {/* Edit Modal */}
@@ -138,8 +141,8 @@ const BlogCard = ({ blog, onUpdate }:any) => {
               placeholder="Blog Content"
               // rows="4"
             ></textarea>
-               <ImageUpload onImageUpload={handleImageUpload} />
-       
+            <ImageUpload onImageUpload={handleImageUpload} />
+
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setIsEditOpen(false)}
