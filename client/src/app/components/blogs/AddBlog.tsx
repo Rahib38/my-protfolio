@@ -31,13 +31,16 @@ export default function AddBlog() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5001/api/blogs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://my-protfolio-server-teal.vercel.app/api/blogs",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const result = await response.json();
       console.log("Blog created successfully:", result);
@@ -61,7 +64,9 @@ export default function AddBlog() {
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="w-full">
-          <label className="block text-gray-700 dark:text-gray-300">Title</label>
+          <label className="block text-gray-700 dark:text-gray-300">
+            Title
+          </label>
           <input
             type="text"
             name="title"
@@ -72,7 +77,9 @@ export default function AddBlog() {
           />
         </div>
         <div>
-          <label className="block text-gray-700 dark:text-gray-300">Content</label>
+          <label className="block text-gray-700 dark:text-gray-300">
+            Content
+          </label>
           <textarea
             name="content"
             value={formData.content}
@@ -87,7 +94,9 @@ export default function AddBlog() {
         <ImageUpload onImageUpload={handleImageUpload} />
 
         <div>
-          <label className="block text-gray-700 dark:text-gray-300">Author</label>
+          <label className="block text-gray-700 dark:text-gray-300">
+            Author
+          </label>
           <input
             type="text"
             name="author"
@@ -104,7 +113,9 @@ export default function AddBlog() {
             onChange={handleChange}
             className="mr-2"
           />
-          <label className="text-gray-700 dark:text-gray-300">Publish Now</label>
+          <label className="text-gray-700 dark:text-gray-300">
+            Publish Now
+          </label>
         </div>
         <button
           type="submit"

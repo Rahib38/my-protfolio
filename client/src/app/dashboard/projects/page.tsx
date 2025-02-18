@@ -3,9 +3,12 @@ import AddProjectModal from "@/app/components/projects/AddProjectModal";
 import ProjectCard from "@/app/components/projects/ProjectCard";
 
 const ProjectPage = async () => {
-  const res = await fetch("http://localhost:5001/api/projects", {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    "https://my-protfolio-server-teal.vercel.app/api/projects",
+    {
+      cache: "no-store",
+    }
+  );
   const projects = await res.json();
   return (
     <div>

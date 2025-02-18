@@ -9,14 +9,20 @@ import ProjectCard from "./components/projects/ProjectCard";
 import Skills from "./components/Skills";
 
 const HomePage = async () => {
-  const res = await fetch("http://localhost:5001/api/projects", {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    "https://my-protfolio-server-teal.vercel.app/api/projects",
+    {
+      cache: "no-store",
+    }
+  );
   const projects = await res.json();
 
-  const response = await fetch("http://localhost:5001/api/blogs", {
-    cache: "no-store",
-  });
+  const response = await fetch(
+    "https://my-protfolio-server-teal.vercel.app/api/blogs",
+    {
+      cache: "no-store",
+    }
+  );
   const blogs = await response.json();
   const session = await getServerSession(authOptions);
   return (

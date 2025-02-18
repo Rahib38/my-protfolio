@@ -7,8 +7,6 @@ import { useState } from "react";
 import { FaEdit, FaExternalLinkAlt, FaGithub, FaTrash } from "react-icons/fa";
 
 const ProjectCard = ({ project, onUpdate }: any) => {
-
-
   const isDashboard =
     typeof window !== "undefined" &&
     window.location.pathname.includes("/dashboard");
@@ -32,10 +30,9 @@ const ProjectCard = ({ project, onUpdate }: any) => {
   };
 
   const handleUpdate = async () => {
-
     try {
       const res = await fetch(
-        `http://localhost:5001/api/projects/${project._id}`,
+        `https://my-protfolio-server-teal.vercel.app/api/projects/${project._id}`,
         {
           method: "PATCH",
           headers: {
@@ -59,7 +56,7 @@ const ProjectCard = ({ project, onUpdate }: any) => {
 
     try {
       const res = await fetch(
-        `http://localhost:5001/api/projects/${project._id}`,
+        `https://my-protfolio-server-teal.vercel.app/api/projects/${project._id}`,
         {
           method: "DELETE",
         }
@@ -133,11 +130,9 @@ const ProjectCard = ({ project, onUpdate }: any) => {
           </div>
         )}
         <h3 className="text-xl font-medium ">{project?.title}</h3>
-        <p className="text-sm ">
-          {project?.description.slice(0, 150)}...
-        </p>
+        <p className="text-sm ">{project?.description.slice(0, 150)}...</p>
         <div className="mt-4 overflow-x-auto whitespace-nowrap flex gap-2 py-2 max-w-full">
-          {technologies?.map((tech:any, index:any) => (
+          {technologies?.map((tech: any, index: any) => (
             <span
               key={index}
               className="px-3 py-1 bg-gray-400 rounded-full text-sm"

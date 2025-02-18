@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client"
+"use client";
 import { useState } from "react";
 
 const ContactPage = () => {
@@ -20,13 +20,16 @@ const ContactPage = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5001/api/message", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://my-protfolio-server-teal.vercel.app/api/message",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const result = await response.json();
       console.log("Message created successfully:", result);
@@ -93,7 +96,7 @@ const ContactPage = () => {
             </div>
           </div>
           <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
-            <form onSubmit={handleSubmit}  className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <label className="">
                 <span className="text-lg font-semibold">Full Name</span>
                 <input
@@ -101,7 +104,6 @@ const ContactPage = () => {
                   name="fullName"
                   value={formData?.fullName}
                   onChange={handleChange}
-
                   placeholder="Enter your name"
                   className="block w-full mt-2 p-3 rounded-md border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 focus:ring "
                 />
@@ -113,7 +115,6 @@ const ContactPage = () => {
                   name="email"
                   value={formData?.email}
                   onChange={handleChange}
-
                   placeholder="Enter your email"
                   className="block w-full mt-2 p-3 rounded-md border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 focus:ring "
                 />
@@ -124,7 +125,6 @@ const ContactPage = () => {
                   name="message"
                   value={formData?.message}
                   onChange={handleChange}
-
                   rows={4}
                   placeholder="Your message here..."
                   className="block w-full mt-2 p-3 rounded-md border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 focus:ring "

@@ -6,8 +6,8 @@ import { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import ImageUpload from "../ImageUploader";
 
-const BlogCard = ({ blog, onUpdate,session }: any) => {
-  console.log(session,"ses")
+const BlogCard = ({ blog, onUpdate, session }: any) => {
+  console.log(session, "ses");
   const isDashboard =
     typeof window !== "undefined" &&
     window.location.pathname.includes("/dashboard");
@@ -32,13 +32,16 @@ const BlogCard = ({ blog, onUpdate,session }: any) => {
   // Handle update function
   const handleUpdate = async () => {
     try {
-      const res = await fetch(`http://localhost:5001/api/blogs/${blog._id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedBlog),
-      });
+      const res = await fetch(
+        `https://my-protfolio-server-teal.vercel.app/api/blogs/${blog._id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedBlog),
+        }
+      );
 
       if (res.ok) {
         onUpdate(); // Refresh the blog list
@@ -53,9 +56,12 @@ const BlogCard = ({ blog, onUpdate,session }: any) => {
     if (!window.confirm("Are you sure?")) return;
 
     try {
-      const res = await fetch(`http://localhost:5001/api/blogs/${blog._id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `https://my-protfolio-server-teal.vercel.app/api/blogs/${blog._id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (res.ok) {
         alert("Blog Deleted Successfully!");
@@ -103,9 +109,7 @@ const BlogCard = ({ blog, onUpdate,session }: any) => {
       </h3>
 
       {/* Blog Content Preview */}
-      <p className=" mt-2 text-base">
-        {blog?.content.slice(0, 150)}...
-      </p>
+      <p className=" mt-2 text-base">{blog?.content.slice(0, 150)}...</p>
 
       <div className="flex justify-between items-center mt-4">
         {/* Author */}

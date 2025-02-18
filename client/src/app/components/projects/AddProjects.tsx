@@ -32,13 +32,16 @@ export default function AddProjects() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5001/api/projects", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://my-protfolio-server-teal.vercel.app/api/projects",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const result = await response.json();
       console.log("Blog created successfully:", result);
