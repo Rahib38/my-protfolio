@@ -1,50 +1,77 @@
-"use client"
-import { useState, useEffect } from "react";
-import { Home, Folder, FileText, MessageCircle, Menu } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
 
-const Sidebar = () => {
-  const router = useRouter();
-  const path = usePathname();
-  const [active, setActive] = useState(path);
-const [isOpen,setIsOpen]=useState(false)
-  useEffect(() => {
-    setActive(path);
-  }, [path]);
+'use client'
+// import { Calendar, Home, Inbox, Search } from "lucide-react"
 
-  const items = [
-    { id: 1, title: "Home", url: "/", icon: <Home size={20} /> },
-    { id: 2, title: "Projects", url: "/dashboard/projects", icon: <Folder size={20} /> },
-    { id: 3, title: "Blogs", url: "/dashboard/blogs", icon: <FileText size={20} /> },
-    { id: 4, title: "Messages", url: "/dashboard/messages", icon: <MessageCircle size={20} /> },
+import {  SquareChartGantt, FileText, MessageCircle, LayoutDashboard } from "lucide-react";
+import { FaHome } from "react-icons/fa";
+
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar"
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+
+// Menu items.
+const items = [
+    {
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: LayoutDashboard ,
+    },
+    {
+      title: "Projects",
+      url: "/dashboard/projects",
+      icon: SquareChartGantt, // Changed to Folder icon
+    },
+    {
+      title: "Blogs",
+      url: "/dashboard/blogs",
+      icon: FileText, // Changed to FileText icon
+    },
+    {
+      title: "Messages",
+      url: "/dashboard/messages",
+      icon: MessageCircle, // Changed to MessageCircle icon
+    },
   ];
 
+export function AppSidebar() {
+   const pathname = usePathname(); 
+  //  console.log(pathname,"path Name");
   return (
-    <div>
-      <button
-        className="sm:hidden p-3 text-white bg-gray-900"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <Menu size={24} />
-      </button>
-      <div className={`h-screen  bg-gray-900 z-10 text-white p-5 fixed sm:relative duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full sm:translate-x-0"}`}>
-        <h2 className="text-2xl font-bold mb-5">Sidebar</h2>
-        <ul>
-          {items.map((item) => (
-            <li
-              key={item.id}
-              className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all duration-300 ${
-                active === item.url ? "bg-blue-500" : "hover:bg-gray-700"
-              }`}
-              onClick={() => router.push(item.url)}
-            >
-              {item.icon} {item.title}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-export default Sidebar;
+    <Sidebar>
+      <SidebarContent>
+        <SidebarGroup>
+          <Link href={'/'} className="flex gap-2 my-2 items-center">
+          <FaHome  className="w-6 h-6"/> <p className="text-2xl font-bold">Home</p>
+          </Link>
+          {/* <SidebarGroupLabel className="text-center text-2xl mx-auto my-3 h-auto "> </SidebarGroupLabel> */}
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {items.map((item) => (
+                <SidebarMenuItem
+                key={item.title}
+                className={`${item.url === pathname ? 'border text-cyan-600 bg-slate-50 dark:bg-slate-800 dark:text-cyan-400 dark:border-cyan-600' : ''}`}
+              >
+                <SidebarMenuButton asChild>
+                  <Link href={item.url}>
+                    <item.icon />
+                    <span>{item.title}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+  )
+}
