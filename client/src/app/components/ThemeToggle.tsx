@@ -14,7 +14,7 @@ export default function ThemeToggle() {
   if (!mounted) return null;
 
   return (
-    <div className="sticky top-16">
+    <div className="sticky  top-16">
       <input
         type="checkbox"
         id="dn-toggle-bs"
