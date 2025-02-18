@@ -6,7 +6,7 @@ const DashboardPage = async() => {
   console.log(session)
   return (
     <div>
-      <h1>Dashboard {session?.user?.name} </h1>
+      <h1 >Dashboard {session?.user?.name} </h1>
     </div>
   )
 }
